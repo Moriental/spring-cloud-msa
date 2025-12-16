@@ -1,0 +1,8 @@
+rootProject.name = 'spring-cloud-msa'
+
+include 'apigateway'
+include 'configserver'
+include 'eureka'
+include 'member'
+include 'ordering'
+include 'product'
