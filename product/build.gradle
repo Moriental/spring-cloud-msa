@@ -36,6 +36,10 @@ dependencies {
 
 	// eureka client 의존성 추가
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+	// 재고 감소 비동기 처리를 위한 카프카 의존성 추가
+	implementation 'org.springframework.kafka:spring-kafka'
+
 }
 
 // 스프링 클라우드에 대한 전체 버전 명시

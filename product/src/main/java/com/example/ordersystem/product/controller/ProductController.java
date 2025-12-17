@@ -26,7 +26,7 @@ public class ProductController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> productDetail(@PathVariable("id") Long id){
+    public ResponseEntity<?> productDetail(@PathVariable("id") Long id,@RequestHeader("X-User-Id") String userId){
         ProductResponseDTO dto = productService.productDetail(id);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }

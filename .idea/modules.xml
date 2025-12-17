@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/member/spring-cloud-msa.member.main.iml" filepath="$PROJECT_DIR$/.idea/modules/member/spring-cloud-msa.member.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ordering/spring-cloud-msa.ordering.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ordering/spring-cloud-msa.ordering.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/product/spring-cloud-msa.product.main.iml" filepath="$PROJECT_DIR$/.idea/modules/product/spring-cloud-msa.product.main.iml" />
     </modules>
   </component>
 </project>
