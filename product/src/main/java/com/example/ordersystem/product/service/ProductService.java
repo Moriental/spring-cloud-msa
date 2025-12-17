@@ -1,13 +1,11 @@
 package com.example.ordersystem.product.service;
 
-import com.example.ordersystem.member.domain.Member;
-import com.example.ordersystem.member.repository.MemberRepository;
 import com.example.ordersystem.product.domain.Product;
 import com.example.ordersystem.product.dto.ProductRegisterDto;
+import com.example.ordersystem.product.dto.ProductResponseDTO;
+import com.example.ordersystem.product.dto.ProductUpdateStockDTO;
 import com.example.ordersystem.product.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,19 +13,32 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ProductService {
     private final ProductRepository productRepository;
-    private final MemberRepository memberRepository;
 
-    public ProductService(ProductRepository productRepository, MemberRepository memberRepository) {
+    public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.memberRepository = memberRepository;
     }
 
-    public Product productCreate(ProductRegisterDto dto){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Member member = memberRepository.findById(Long.parseLong(authentication.getName())).orElseThrow(()->new EntityNotFoundException("member is not found"));
+    public Product productCreate(ProductRegisterDto dto,String userId){
 
-        Product product = productRepository.save(dto.toEntity(member));
+        Product product = productRepository.save(dto.toEntity(Long.parseLong(userId)));
         return product;
     }
 
+    public ProductResponseDTO productDetail(Long id) {
+        Product product = productRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("없는 상품입니다."));
+        ProductResponseDTO dto = ProductResponseDTO.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .price(product.getPrice())
+                .stockQuantity(product.getStockQuantity())
+                .build();
+
+        return dto;
+    }
+
+    public Product updateStockQuantity(ProductUpdateStockDTO dto) {
+        Product product =productRepository.findById(dto.getProductId()).orElseThrow(()->new EntityNotFoundException("없는 상품입니다."));
+        product.updateStockQuantity(dto.getProductQuantity());
+        return product;
+    }
 }
